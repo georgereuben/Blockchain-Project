@@ -71,6 +71,15 @@ def add_property():
     owner = int(input("Enter the property owner ID: "))
 
     flag = 0
+    for i in range (0, len(property_list)):
+        if(property_list[i].pid == pid):
+            flag = 1
+            break
+    if(flag):
+        print("Property already exists in the system")
+        return
+
+    flag = 0
     for i in range (0, len(user_list)):
         if(user_list[i].uid == owner):
             flag = 1
