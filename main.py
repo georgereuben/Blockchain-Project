@@ -37,10 +37,12 @@ def add_user():
 
     n = int(input("Enter the number of properties of the user: "))
     uproperties = list()
+
     for i in range(n):
         p = int(input("Enter the property id: "))
         flag = 0
         for j in property_list:
+            print("\n " + str(j.pid) + " ")
             if(j.pid == p):
                 flag = 1
                 break
@@ -103,16 +105,16 @@ def enter_transaction():
     if(not flag):
         print("Seller not found")
         return
-    
+
     flag = 0
     for i in range(0, len(property_list)):
         if(property_list[i].pid == pid):
             flag = 1
             p_index = i
             break
-        if(not flag):
-            print("Property not found")
-            return
+    if(not flag):
+        print("Property not found")
+        return
 
     if(property_list[p_index].owner != seller):
         print("Seller is not the owner of the property")
