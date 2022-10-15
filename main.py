@@ -74,8 +74,8 @@ def enter_transaction():
     pid = int(input("Enter the property id: "))
 
     flag = 0
-    for i in user_list:
-        if(i.uid == buyer):
+    for i in range (0, len(user_list)):
+        if(user_list[i].uid == buyer):
             b_index = i
             flag = 1
             break
@@ -84,8 +84,8 @@ def enter_transaction():
         return
     
     flag = 0
-    for i in range (0, user_list.size()):
-        if(user_list.uid == seller):
+    for i in range (0, len(user_list)):
+        if(user_list[i].uid == seller):
             s_index = i
             flag = 1
             break
@@ -94,7 +94,7 @@ def enter_transaction():
         return
     
     flag = 0
-    for i in range(0, property_list.size()):
+    for i in range(0, len(property_list)):
         if(property_list[i].pid == pid):
             flag = 1
             p_index = i
@@ -129,7 +129,7 @@ def calculate_hashes():
 def view_transaction_history(p):
     ctr = 0
     for t in transaction_list:
-        if(t.pid == p.pid):
+        if(t.pid == p):
             print(ctr + ".\n" + t.buyer + " bought " + t.pid + " from " + t.seller)
     return
 
@@ -146,7 +146,8 @@ def main():
         elif choice == "4":
             calculate_hashes()
         elif choice == "5":
-            view_transaction_history()
+            p = int(input("Enter the property ID: "))
+            view_transaction_history(p)
         elif choice == "6":
             break
         else:
