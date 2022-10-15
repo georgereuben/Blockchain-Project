@@ -17,8 +17,8 @@ class transaction:
         self.seller = seller
         self.pid = pid
 
-user_set = set()
-property_set = set()
+user_list = list()
+property_list = list()
 transaction_list = list()
 
 def menu():
@@ -39,14 +39,14 @@ def add_user():
     uproperties = list()
     for i in range(n):
         p = int(input("Enter the property id: "))
-        if(p not in property_set):                                      # if property exists
+        if(p not in property_list):                                      # if property exists
             print("Property not found, adding to user's property list")
             price = int(input("Enter the property price: "))
             ustake += price
-            property_set.add(property(p, price, uid))
+            property_list.add(property(p, price, uid))
 
             # ADD PROPERTY PRICES TO USER STAKE HERE
-        if(property_set[p].owner != uid):                               # already owned property
+        if(property_list[p].owner != uid):                               # already owned property
             print("User is not the owner of the property")
             continue
         uproperties.append(p)                                           # uproperties - list of pids             
@@ -58,7 +58,7 @@ def add_property():
     price = int(input("Enter the property price: "))
     owner = int(input("Enter the property owner ID: "))
 
-    if(owner not in user_set):
+    if(owner not in user_list):
         print("Owner not found")
         return
 
@@ -69,35 +69,35 @@ def enter_transaction():
     seller = int(input("Enter the seller id: "))
     pid = int(input("Enter the property id: "))
 
-    if(buyer not in user_set):
+    if(buyer not in user_list):
         print("Buyer not found")
         return
     
-    if(seller not in user_set):
+    if(seller not in user_list):
         print("Seller not found")
         return
     
-    if(pid not in property_set):
+    if(pid not in property_list):
         print("Property not found")
         return
     
-    if(property_set[pid].owner != seller):
+    if(property_list[pid].owner != seller):
         print("Seller is not the owner of the property")
         return
 
-    if(property_set[pid].price > user_set[buyer].wallet):
+    if(property_list[pid].price > user_list[buyer].wallet):
         print("Buyer does not have enough money")
         return
 
     # add more testcases
 
-    property_set[pid].owner = buyer
+    property_list[pid].owner = buyer
 
-    user_set[buyer].ustake += property_set[pid].price
-    user_set[seller].ustake -= property_set[pid].price
+    user_list[buyer].ustake += property_list[pid].price
+    user_list[seller].ustake -= property_list[pid].price
 
-    user_set[buyer].wallet -= property_set[pid].price
-    user_set[seller].wallet += property_set[pid].price
+    user_list[buyer].wallet -= property_list[pid].price
+    user_list[seller].wallet += property_list[pid].price
 
     return transaction(buyer, seller, pid)
 
@@ -116,9 +116,9 @@ def main():
         menu()
         choice = input("Enter your choice: ")
         if choice == "1":
-            user_set.add(add_user())
+            user_list.add(add_user())
         elif choice == "2":
-            property_set.add(add_property())
+            property_list.add(add_property())
         elif choice == "3":
             transaction_list.append(enter_transaction())
         elif choice == "4":
