@@ -38,15 +38,21 @@ def add_user():
     n = int(input("Enter the number of properties of the user: "))
     uproperties = list()
     for i in range(n):
-        flag = 1
         p = int(input("Enter the property id: "))
-        if(p not in property_list):                                      # if property exists
+        flag = 0
+        for j in property_list:
+            if(j.pid == p):
+                flag = 1
+                break
+
+        if(not flag):                                                           # if property does not exist
             print("Property not found, adding to user's property list")
             price = int(input("Enter the property price: "))
             ustake += price
-            property_list.append(property(p, price, uid))
+            property_list.append(property(p, price, uid))                   
 
             # ADD PROPERTY PRICES TO USER STAKE HERE
+        flag = 1
         for j in property_list:
             if(j.pid == p):                               # already owned property
                 if(j.owner != uid):
@@ -62,7 +68,12 @@ def add_property():
     price = int(input("Enter the property price: "))
     owner = int(input("Enter the property owner ID: "))
 
-    if(owner not in user_list):
+    flag = 0
+    for i in range (0, len(user_list)):
+        if(user_list[i].uid == owner):
+            flag = 1
+            break
+    if(not flag):
         print("Owner not found")
         return
 
@@ -130,7 +141,7 @@ def view_transaction_history(p):
     ctr = 0
     for t in transaction_list:
         if(t.pid == p):
-            print(ctr + ".\n" + t.buyer + " bought " + t.pid + " from " + t.seller)
+            print(str(ctr) + ".\n" + str(t.buyer) + " bought " + str(t.pid) + " from " + str(t.seller))
     return
 
 def main():
