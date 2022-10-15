@@ -31,17 +31,17 @@ def menu():
     print("6. Exit\n")
 
 def add_user():
-    uid = input("Enter the user id: ")
+    uid = int(input("Enter the user id: "))
     ustake = 0
-    uwallet = input("Enter the user wallet: ")
+    uwallet = int(input("Enter the user wallet: "))
 
-    n = input("Enter the number of properties of the user: ")
+    n = int(input("Enter the number of properties of the user: "))
     uproperties = list()
     for i in range(n):
-        p = input("Enter the property id: ")
+        p = int(input("Enter the property id: "))
         if(p not in property_set):                                      # if property exists
             print("Property not found, adding to user's property list")
-            price = input("Enter the property price: ")
+            price = int(input("Enter the property price: "))
             ustake += price
             property_set.add(property(p, price, uid))
 
@@ -54,9 +54,9 @@ def add_user():
     return user(uid, ustake, uwallet, uproperties)
 
 def add_property():
-    pid = input("Enter the property id: ")
-    price = input("Enter the property price: ")
-    owner = input("Enter the property owner: ")
+    pid = int(input("Enter the property ID: "))
+    price = int(input("Enter the property price: "))
+    owner = int(input("Enter the property owner ID: "))
 
     if(owner not in user_set):
         print("Owner not found")
@@ -65,9 +65,9 @@ def add_property():
     return property(pid, price, owner)
 
 def enter_transaction():
-    buyer = input("Enter the buyer id: ")
-    seller = input("Enter the seller id: ")
-    pid = input("Enter the property id: ")
+    buyer = int(input("Enter the buyer id: "))
+    seller = int(input("Enter the seller id: "))
+    pid = int(input("Enter the property id: "))
 
     if(buyer not in user_set):
         print("Buyer not found")
